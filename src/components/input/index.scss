@@ -1,0 +1,37 @@
+.text_field {
+    display: flex;
+    flex: 1 1 auto;
+    position: relative;
+    label{
+        max-width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        top: 6px;
+        left: 0px;
+        right: auto;
+        white-space: nowrap;
+        pointer-events: none;
+        font-size: 16px;
+        min-height: 8px;
+        transition: .3s cubic-bezier(.25,.8,.5,1);
+        transform-origin: top left;
+        position: absolute;
+        height: 20px;
+        line-height: 20px;
+    }
+    input{
+        flex: 1 1 auto;
+        line-height: 20px;
+        padding: 8px 0;
+        max-width: 100%;
+        min-width: 0;
+        width: 100%;
+        color: rgba(0,0,0,.87);
+    }
+}
+.text_field.active{
+    label{
+        max-width: 133%;
+        transform: translateY(-18px) scale(.75);
+    }
+}
