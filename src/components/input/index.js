@@ -27,6 +27,7 @@ export default class extends Component {
                 <input
                     ref="Input"
                     onChange={this.handleChange}
+                    autoComplete="off"
                     name={this.props.name}
                     value={this.props.value}
                     type={this.props.type}

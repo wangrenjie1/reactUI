@@ -19,12 +19,25 @@ class App extends Component{
             [name]:value
         })
     }
+    handleClick = ()=>{
+        return new Promise((reslove,reject)=>{
+            setTimeout(()=>{
+                reslove(1)
+            },2000)
+        })
+    }
     render(){
         return(
-            <div className="wrap">
+            <form className="wrap">
                 <LeField label="name" name="name" value={this.state.name} onChange={this.handleChange}></LeField>
                 <LeField label="age" name="age" type="password" value={this.state.age} onChange={this.handleChange}></LeField>
-            </div>
+                <div className="btn_group">
+                    <LeButton value="disabled" onSubmit={this.handleClick} disabled={true}></LeButton>
+                    <LeButton></LeButton>
+                    <LeButton value="normal" type="normal"></LeButton>
+                    <LeButton value="delete" type="delete"></LeButton>
+                </div>
+            </form>
         )
     }
 }
