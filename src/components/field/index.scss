@@ -54,3 +54,12 @@
         }
     }
 }
+.input_group.__checkbox,.input_group.__radio{
+    .input_control{
+        .input_slot{
+            &:before,&:after{
+                border: none;
+            }
+        }
+    }
+}

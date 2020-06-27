@@ -47,7 +47,8 @@ let webpackConfig = {
     resolve:{
         alias: {
             "@components":path.resolve(__dirname,"./src/components"),
-            "@core":path.resolve(__dirname, "./src/assets")
+            "@core":path.resolve(__dirname, "./src/assets"),
+            "@font":path.resolve(__dirname, "./src/fonts"),
         }
     }
 };

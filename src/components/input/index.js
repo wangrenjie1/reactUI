@@ -6,7 +6,9 @@ export default class extends Component {
         super(props);
     }
     handleChange = (e) => {
-        this.props.onChange(e);
+        let name = this.props.name;
+        let value = e.target.value;
+        this.props.onChange(name,value);
     }
     componentDidMount() {
         this.refs.Input.addEventListener('focus', (e) => {

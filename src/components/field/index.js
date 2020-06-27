@@ -1,10 +1,12 @@
 import React, { Component, createElement } from 'react';
 import "./index.scss";
-import Input from "@components/input"
+import Input from "@components/input";
+
 
 export default class extends Component {
     static defaultProps = {
         component: Input,
+        type:"text",
         name: "",
         initialValue: "",
         value: "",
@@ -14,9 +16,6 @@ export default class extends Component {
     }
     constructor(props) {
         super(props);
-        switch(this.props.type){
-            // todo class
-        }
         this.state = {
             focused: this.props.focused ? true : false,
         }
@@ -34,7 +33,7 @@ export default class extends Component {
     render() {
         const { component, ...otherProps } = this.props;
         return (
-            <div className={`input_group ${this.state.focused ? "focused" : ""}`}>
+            <div className={`input_group ${this.state.focused ? "focused" : ""}  __${this.props.type}`}>
                 <div className="input_control">
                     <div className="input_slot">
                         {
