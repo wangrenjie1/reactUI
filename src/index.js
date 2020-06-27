@@ -22,11 +22,15 @@ class App extends Component{
                 {name:"女👩",value:1},
             ],
             sex1:0,
+            fruits:[
+                {name:"🍎apple",id:0},
+                {name:"🍌banana",id:1},
+                {name:"🍇grape",id:2},
+            ],
+            fruit:""
         }
     }
     handleChange = (name,value)=>{
-        console.log(name)
-        console.log(value)
         this.setState((state,props)=>({
             [name]:value
         }))
@@ -99,11 +103,11 @@ class App extends Component{
                     label="sex"
                     name="sex1"
                     type="radio"
+                    data={this.state.sexs}
+                    value={this.state.sex1}
                     displayName="name"
                     displayValue="value"
-                    data={this.state.sexs}
                     disabled={true}
-                    value={this.state.sex1}
                     onChange={this.handleChange}
                     component={LeRadio}
                 ></LeField>
@@ -113,7 +117,16 @@ class App extends Component{
                     JSON.stringify(this.state.sex)
                 }
                 <LeField
+                    label="fruit"
+                    name="fruit"
+                    type="select"
+                    data={this.state.fruits}
+                    value={this.state.fruit}
+                    displayName="name"
+                    displayValue="id"
+                    onChange={this.handleChange}
                     component={LeSelect}
+                    focused={false}
                 ></LeField>
                 <div className="btn_group">
                     <LeButton value="disabled"  disabled={true}></LeButton>

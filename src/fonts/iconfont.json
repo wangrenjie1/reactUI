@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1138735",
+      "name": "select_up",
+      "font_class": "selectup",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
       "icon_id": "12348193",
       "name": "radio_button_checked_24px_rounded",
       "font_class": "radio_button_checked_px_rounded",
