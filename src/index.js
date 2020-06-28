@@ -10,7 +10,7 @@ class App extends Component{
         this.state = {
             name:"",
             age:"",
-            happy:[0,2],
+            happy:[],
             hobby:[
                 {name:"⚽️足球",value:0},
                 {name:"🏀篮球",value:1},
@@ -27,7 +27,14 @@ class App extends Component{
                 {name:"🍌banana",id:1},
                 {name:"🍇grape",id:2},
             ],
-            fruit:""
+            fruit:"",
+            foods:[
+                {name:"🐟fish",id:0},
+                {name:"🐱 cat",id:1},
+                {name:"🐶 dog",id:2},
+                {name:"🐯tiger",id:3},
+            ],
+            food:[0,1]
         }
     }
     handleChange = (name,value)=>{
@@ -41,6 +48,9 @@ class App extends Component{
                 reslove(1)
             },2000)
         })
+    }
+    getData(){
+        console.log(this.refs.animal)
     }
     componentDidMount(){
 
@@ -126,12 +136,31 @@ class App extends Component{
                     displayValue="id"
                     onChange={this.handleChange}
                     component={LeSelect}
-                    focused={false}
                 ></LeField>
+                {
+                    JSON.stringify(this.state.fruit)
+                }
+
+                <LeField
+                    label="animal"
+                    name="food"
+                    type="select"
+                    data={this.state.foods}
+                    value={this.state.food}
+                    displayName="name"
+                    displayValue="id"
+                    onChange={this.handleChange}
+                    component={LeSelect}
+                    multiply={true}
+                    ref="animal"
+                ></LeField>
+                {
+                    JSON.stringify(this.state.food)
+                }
                 <div className="btn_group">
                     <LeButton value="disabled"  disabled={true}></LeButton>
                     <LeButton onSubmit={this.handleClick}></LeButton>
-                    <LeButton value="normal" type="normal"></LeButton>
+                    <LeButton value="normal" type="normal" onClick={()=>this.getData()}></LeButton>
                     <LeButton value="delete" type="delete"></LeButton>
                 </div>
             </form>

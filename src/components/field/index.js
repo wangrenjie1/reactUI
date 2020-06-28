@@ -40,6 +40,7 @@ export default class extends Component {
                             createElement(
                                 component,
                                 {
+                                    ref:this.refNode,
                                     ...otherProps,
                                     onFocus: this.handleFocus,
                                     focused: this.state.focused,
