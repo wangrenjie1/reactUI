@@ -78,6 +78,7 @@ export default class extends Component {
                             {item[this.props.displayName]}
                         </span>
                     </span>))}
+                    <input className="selected_search" type="text"/>
                 </div>
                 <div className={`select_menu_control ${this.props.focused ? "open" : ""}`}>
                     <i className="iconfont icon-selectup"></i>
