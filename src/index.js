@@ -1,12 +1,15 @@
 import React,{Component} from 'react';
 import ReactDom from 'react-dom';
-import { LeInput,LeForm,LeButton,LeField,LeCheckbox,LeRadio,LeSelect } from "./out/index.js";
+import { LeInput,LeForm,LeButton,LeField,LeCheckbox,LeRadio,LeSelect,LeAutoComplete } from "./out/index.js";
 import "./assets/base.scss";
 import "./fonts/iconfont.scss"
-
 class App extends Component{
     constructor(props){
         super(props);
+        this.ageInput = null;
+        this.nameInput = null;
+        this.happyCheckbox = null;
+
         this.state = {
             name:"",
             age:"",
@@ -34,7 +37,9 @@ class App extends Component{
                 {name:"🐶 dog",id:2},
                 {name:"🐯tiger",id:3},
             ],
-            food:[0,1]
+            food:[0,1],
+            suggest:"",
+            suggests:[],
         }
     }
     handleChange = (name,value)=>{
@@ -50,7 +55,18 @@ class App extends Component{
         })
     }
     getData(){
-        console.log(this.refs.animal)
+        this.ageInput.alertName();
+        this.nameInput.alertName();
+    }
+    getHappy(){
+        let result = this.happyCheckbox.getCheckItems();
+        console.log(result);
+    }
+    analysis(res){
+        return res.data;
+    }
+    selectItem(item){
+        console.log(item);
     }
     componentDidMount(){
 
@@ -58,31 +74,38 @@ class App extends Component{
     render(){
         return(
             <form className="wrap">
+            {/* input */}
                 <LeField 
-                    label="name" 
+                    label="name"
+                    el={el=> this.ageInput = el}
                     name="name" 
                     value={this.state.name} 
                     onChange={this.handleChange}>
                 </LeField>
                 <LeField 
                     label="age" 
+                    el={el=> this.nameInput = el}
                     name="age" 
                     type="password" 
                     value={this.state.age} 
                     onChange={this.handleChange}>
                 </LeField>
-                
+             {/*checkbox  */}
                 <LeField 
                     label="happy" 
+                    el={el=>this.happyCheckbox = el}
                     name="happy" 
                     type="checkbox"
                     displayName="name"
                     displayValue="value"
                     data={this.state.hobby} 
-                    value={this.state.happy} 
+                    value={this.state.happy}
                     onChange={this.handleChange} 
-                    component={LeCheckbox}>
+                    Component={LeCheckbox}>
                 </LeField>
+                {
+                    JSON.stringify(this.state.happy)
+                }
                 <LeField 
                     name="happy" 
                     type="checkbox"
@@ -91,13 +114,11 @@ class App extends Component{
                     value={this.state.happy} 
                     onChange={this.handleChange} 
                     disabled={true}
-                    component={LeCheckbox}>
+                    Component={LeCheckbox}>
                 </LeField>
-                
                 <hr/>
-                {
-                    JSON.stringify(this.state.happy)
-                }
+
+                {/* radio */}
                 <LeField
                     label="sex"
                     name="sex"
@@ -107,8 +128,11 @@ class App extends Component{
                     data={this.state.sexs}
                     value={this.state.sex}
                     onChange={this.handleChange}
-                    component={LeRadio}
+                    Component={LeRadio}
                 ></LeField>
+                {
+                    JSON.stringify(this.state.sex)
+                }
                 <LeField
                     label="sex"
                     name="sex1"
@@ -119,13 +143,11 @@ class App extends Component{
                     displayValue="value"
                     disabled={true}
                     onChange={this.handleChange}
-                    component={LeRadio}
+                    Component={LeRadio}
                 ></LeField>
-                
                 <hr/>
-                {
-                    JSON.stringify(this.state.sex)
-                }
+                
+                {/* select */}
                 <LeField
                     label="fruit"
                     name="fruit"
@@ -135,12 +157,11 @@ class App extends Component{
                     displayName="name"
                     displayValue="id"
                     onChange={this.handleChange}
-                    component={LeSelect}
+                    Component={LeSelect}
                 ></LeField>
                 {
                     JSON.stringify(this.state.fruit)
                 }
-
                 <LeField
                     label="animal"
                     name="food"
@@ -150,18 +171,31 @@ class App extends Component{
                     displayName="name"
                     displayValue="id"
                     onChange={this.handleChange}
-                    component={LeSelect}
+                    Component={LeSelect}
                     multiply={true}
-                    ref="animal"
                 ></LeField>
                 {
                     JSON.stringify(this.state.food)
                 }
+                <hr/>
+                <LeField
+                    label="autoComplete"
+                    name="suggest"
+                    type="select"
+                    value={this.state.suggest}
+                    displayName="word"
+                    onChange={this.handleChange}
+                    url="/suggest"
+                    Component={LeAutoComplete}
+                    analysis={this.analysis}
+                    selectItem={this.selectItem}
+                ></LeField>
                 <div className="btn_group">
                     <LeButton value="disabled"  disabled={true}></LeButton>
                     <LeButton onSubmit={this.handleClick}></LeButton>
-                    <LeButton value="normal" type="normal" onClick={()=>this.getData()}></LeButton>
                     <LeButton value="delete" type="delete"></LeButton>
+                    <LeButton value="normal" type="normal" onClick={()=>this.getData()}></LeButton>
+                    <LeButton value="happy" type="normal" onClick={()=>this.getHappy()}></LeButton>
                 </div>
             </form>
         )

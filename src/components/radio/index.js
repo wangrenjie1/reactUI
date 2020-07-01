@@ -18,7 +18,9 @@ export default class extends Component {
                 return item;
             })
         }
-        // console.log(this.state.data)
+    }
+    getCheckItem(){
+       return this.state.data.filter(item=>item._checked); 
     }
     handleChange = (i,e)=>{
         e.persist();

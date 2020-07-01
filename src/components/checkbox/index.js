@@ -19,15 +19,20 @@ export default class extends Component {
             })
         }
     }
+    getCheckItems(){
+        return this.state.data.filter(item=>item._checked);
+    }
     handleChange = (i,e)=>{
         e.persist();
         this.setState((state,props)=>{
             state.data[i]._checked = e.target.checked;
             return state;
-        },()=>{
+        },(state,props)=>{
             let selectedTtems = this.state.data.filter(item=>item._checked);
+            if(this.props.field){this.props.field.context[this.props.field.key] = selectedTtems;}
             this.props.onChange(this.props.name,selectedTtems.map(item=>item[this.props.displayValue]));
         })
+
     }
     render() {
         if (!this.props.data.length) {

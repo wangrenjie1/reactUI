@@ -1,18 +1,21 @@
-import React, { Component, createElement } from 'react';
+import React, { Component, createElement, forwardRef } from 'react';
 import "./index.scss";
 import Input from "@components/input";
 
 
 export default class extends Component {
     static defaultProps = {
-        component: Input,
-        type:"text",
+        Component: Input,
+        type: "text",
         name: "",
         initialValue: "",
         value: "",
         label: "",
         error: "",
         focused: false,
+    }
+    getCurrentComponent(){
+        debugger;
     }
     constructor(props) {
         super(props);
@@ -22,32 +25,27 @@ export default class extends Component {
     }
     handleFocus = () => {
         this.setState({
-            focused:true
+            focused: true
         })
     }
     handleBlur = () => {
         this.setState({
-            focused:false
+            focused: false
         })
     }
     render() {
-        const { component, ...otherProps } = this.props;
+        const { Component, ...otherProps } = this.props;
         return (
             <div className={`input_group ${this.state.focused ? "focused" : ""}  __${this.props.type}`}>
                 <div className="input_control">
                     <div className="input_slot">
-                        {
-                            createElement(
-                                component,
-                                {
-                                    ref:this.refNode,
-                                    ...otherProps,
-                                    onFocus: this.handleFocus,
-                                    focused: this.state.focused,
-                                    onBlur:this.handleBlur
-                                }
-                            )
-                        }
+                        <Component
+                            ref={this.props.el}
+                            {...otherProps}
+                            onFocus={this.handleFocus}
+                            onBlur={this.handleBlur}
+                            focused={this.state.focused}
+                        />
                     </div>
                     <div className="input_detail"></div>
                 </div>
@@ -55,3 +53,4 @@ export default class extends Component {
         );
     }
 };
+

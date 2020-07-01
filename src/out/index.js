@@ -6,6 +6,7 @@ import  LeButton from '@components/button';
 import  LeCheckbox from '@components/checkbox';
 import  LeRadio from '@components/radio';
 import  LeSelect from '@components/select';
+import  LeAutoComplete from '@components/autoComplete';
 
 export {
     LeInput,
@@ -14,5 +15,6 @@ export {
     LeField,
     LeCheckbox,
     LeRadio,
-    LeSelect
+    LeSelect,
+    LeAutoComplete
 }

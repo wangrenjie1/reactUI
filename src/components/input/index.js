@@ -4,6 +4,7 @@ import "./index.scss";
 export default class extends Component {
     constructor(props) {
         super(props);
+        this.inputRef = React.createRef();
     }
     handleChange = (e) => {
         let name = this.props.name;
@@ -11,23 +12,26 @@ export default class extends Component {
         this.props.onChange(name,value);
     }
     componentDidMount() {
-        this.refs.Input.addEventListener('focus', (e) => {
+        this.inputRef.current.addEventListener('focus', (e) => {
             this.props.onFocus();
         })
-        this.refs.Input.addEventListener('blur', (e) => {
+        this.inputRef.current.addEventListener('blur', (e) => {
             this.props.onBlur();
         })
     }
     componentWillUnmount(){
-        this.refs.Input.removeEventListener('focus');
-        this.refs.Input.removeEventListener('blur');
+        this.inputRef.current.removeEventListener('focus');
+        this.inputRef.current.removeEventListener('blur');
+    }
+    alertName(){
+        alert("this is input component : " + this.props.name)
     }
     render() {
         return (
             <div className={`text_field ${this.props.focused||this.props.value!="" ? "active" : ""}`}>
                 {this.props.label ? <label>{this.props.label}</label> : ""}
                 <input
-                    ref="Input"
+                    ref={this.inputRef}
                     onChange={this.handleChange}
                     autoComplete="off"
                     name={this.props.name}
