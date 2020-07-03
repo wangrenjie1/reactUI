@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import SearchInput from "./Input.js";
 import SelectMenu from "./Menu.js";
+import http from "@core/http.js";
 export default class extends Component{
     constructor(props){
         super(props);
@@ -23,10 +24,8 @@ export default class extends Component{
     }
     getData(){
         return new Promise((resolve,reject)=>{
-            fetch(this.props.url + "?keyword=" + this.state.keyword).then((reponse)=>{
-                return reponse.json();
-            }).then((res)=>{
-                resolve(res);
+            http.get(this.props.url,{keyword:this.state.keyword}).then((res)=>{
+                resolve(res)
             }).catch(err=>{
                 reject(err);
             })

@@ -36,30 +36,23 @@ export default class extends React.Component {
     componentWillUnmount() {
         this.refs.button.removeEventListener('click');
     }
-    handleClick = ()=>{
+    handleClick = async ()=>{
         if(this.props.onClick){
             this.props.onClick();
             return
         }
         if(this.props.onSubmit){
-            if(tool.isPromise(this.props.onSubmit)){
-                return new Promise((resolve,reject)=>{
-                    this.setState({
-                        disabled:true
-                    })
-                    this.props.onSubmit().then(res=>{
-                        this.setState({
-                            disabled:false
-                        })
-                        resolve(res);
-                    })
+            const p = this.props.onSubmit();
+            if(tool.isPromise(p)){
+                this.setState({disabled:true})
+                p.then(res=>{
+                    this.setState({disabled:false})
                 }).catch(err=>{
-                    reject();
+                    this.setState({disabled:false})
                 })
             }else{
-                throw new Error("请传入function 不是一个promise")
+                throw new Error("传入的function 不是一个promise")
             }
-            return;
         }
     }
     render() {

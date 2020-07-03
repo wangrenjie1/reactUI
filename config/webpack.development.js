@@ -23,10 +23,17 @@ module.exports = {
         port: "9999",
         openPage: './index.html',
         proxy: {
-            '/':{
+            '/serach':{
                 target: 'http://s.nec.lenovouat.com',
-                secure: false,
-                changeOrigin: true
+                secure: false, //接受运行在https上，且使用了无效证书的后端服务器
+                changeOrigin: true,
+                pathRewrite: {"^/serach" : ""}
+            },
+            '/api':{
+                target: 'https://admin.nec.lenovouat.com',
+                secure: false, //接受运行在https上，且使用了无效证书的后端服务器
+                changeOrigin: true,
+                pathRewrite: {"^/api" : ""}
             },
         },
         //404 页面返回 index.html

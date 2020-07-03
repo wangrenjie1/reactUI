@@ -2,7 +2,9 @@ import React,{Component} from 'react';
 import ReactDom from 'react-dom';
 import { LeInput,LeForm,LeButton,LeField,LeCheckbox,LeRadio,LeSelect,LeAutoComplete } from "./out/index.js";
 import "./assets/base.scss";
-import "./fonts/iconfont.scss"
+import "./fonts/iconfont.scss";
+import http from "@core/http.js";
+import tool from "@core/tool.js";
 class App extends Component{
     constructor(props){
         super(props);
@@ -11,8 +13,8 @@ class App extends Component{
         this.happyCheckbox = null;
 
         this.state = {
-            name:"",
-            age:"",
+            userid:"",
+            password:"",
             happy:[],
             hobby:[
                 {name:"⚽️足球",value:0},
@@ -48,11 +50,21 @@ class App extends Component{
         }))
     }
     handleClick = ()=>{
-        return new Promise((reslove,reject)=>{
+        return new Promise((resolve,reject)=>{
             setTimeout(()=>{
-                reslove(1)
+                resolve(1)
             },2000)
         })
+    }
+    login = ()=> {
+        return  http.postFormData("/api/login",{
+                    userid:this.state.userid,
+                    password:this.state.password,
+                    lang:"en"
+                }).then(res=>{
+                    // tool.cookie.setCookie("userName",d.data.uname)
+                    console.log(res)
+                })
     }
     getData(){
         this.ageInput.alertName();
@@ -76,18 +88,18 @@ class App extends Component{
             <form className="wrap">
             {/* input */}
                 <LeField 
-                    label="name"
+                    label="itcode"
                     el={el=> this.ageInput = el}
-                    name="name" 
-                    value={this.state.name} 
+                    name="userid" 
+                    value={this.state.userid} 
                     onChange={this.handleChange}>
                 </LeField>
                 <LeField 
-                    label="age" 
+                    label="password" 
                     el={el=> this.nameInput = el}
-                    name="age" 
+                    name="password" 
                     type="password" 
-                    value={this.state.age} 
+                    value={this.state.password} 
                     onChange={this.handleChange}>
                 </LeField>
              {/*checkbox  */}
@@ -185,15 +197,15 @@ class App extends Component{
                     value={this.state.suggest}
                     displayName="word"
                     onChange={this.handleChange}
-                    url="/suggest"
+                    url="/serach/suggest"
                     Component={LeAutoComplete}
                     analysis={this.analysis}
                     selectItem={this.selectItem}
                 ></LeField>
                 <div className="btn_group">
                     <LeButton value="disabled"  disabled={true}></LeButton>
+                    <LeButton onSubmit={this.login}></LeButton>
                     <LeButton onSubmit={this.handleClick}></LeButton>
-                    <LeButton value="delete" type="delete"></LeButton>
                     <LeButton value="normal" type="normal" onClick={()=>this.getData()}></LeButton>
                     <LeButton value="happy" type="normal" onClick={()=>this.getHappy()}></LeButton>
                 </div>

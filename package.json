@@ -34,6 +34,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "fetch-jsonp": "^1.1.3",
     "lodash": "^4.17.15"
   }
 }
